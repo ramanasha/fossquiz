@@ -3,17 +3,20 @@ import javax.swing.JPanel;
 import java.awt.CardLayout;
 import java.util.Random;
 import javax.swing.JOptionPane;
+import java.util.ArrayList;
 
 public class Quiz extends JFrame{
 	JPanel p=new JPanel();
 	CardLayout cards=new CardLayout();
-	int numQs = 1;
+	int num = 1;
+	boolean v = false;
+
 	int wrongs = 0;
 	int corrects=0;
 	int total=9;
 	
 	String[][] answers={
-		{"Freely Licensed Software","Proprietary software"},
+		{"True","False"},
 		{"PHP","Python","C++","Java"},
 		{"Adobe Flash Player","Blender","Linux","Android"},
 		{"Lazarus","Premake","make","None of the above"},
@@ -21,15 +24,15 @@ public class Quiz extends JFrame{
 		{"True","False"},
 		{"True","False"},
 		{"Microsoft","HP","Netscape","Apple"},
-		{"The Lion King","Hamlet","Death of The Salesmen","Phantom of the Opera"},
+		{"Windows 10","Mac OS X","Linux","None of the above"},
 	};
 	
 	RadioQuestion questions[]={
 		
 		new RadioQuestion(
-			"FOSS is computer software that can be classified as?",
+			"Open source software is Freely Licensed Software.",
 			answers[0],
-			3,this
+			0,this
 		),
 		new RadioQuestion(
 			"Which language is used to write the most open source packages?",
@@ -43,12 +46,12 @@ public class Quiz extends JFrame{
 		),
 
 		new RadioQuestion(
-			"This popular open source build tool ensures that source files that have been updated are compiled into a new version (or build) of a program.?",
+			"This popular open source build tool ensures that source files that have been updated are compiled into a new version of a program.?",
 			answers[3],
 			2,this
 		),
 		new RadioQuestion(
-			"What organization defines Open Source rules?",
+			"Which organization defines Open Source rules?",
 			answers[4],
 			1,this
 		),
@@ -58,7 +61,7 @@ public class Quiz extends JFrame{
 			0,this
 		),
 		new RadioQuestion(
-			"True or False, Open Source software is more expensive for its users.",
+			"True or False, Open Source software is expensive for its users.",
 			answers[6],
 			1,this
 		),
@@ -68,7 +71,7 @@ public class Quiz extends JFrame{
 			2,this
 		),
 		new RadioQuestion(
-			"Which of these plays is made by shakespeare?",
+			"Which of these is an example of FOSS?",
 			answers[8],
 			1,this
 		)
@@ -79,14 +82,15 @@ public class Quiz extends JFrame{
 	}
 	
 	public Quiz(){
-		super("Quiz Game");
+
+		super("FOSS Quiz");
 		setResizable(true);
-		setSize(500,400);
+		setSize(600,400);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		p.setLayout(cards);
-		numQs= questions.length;
-		for(int i=0;i<numQs;i++){
+		num= questions.length;
+		for(int i=0;i<num;i++){
 			p.add(questions[i],"q"+i);
 		}
 		
@@ -99,23 +103,16 @@ public class Quiz extends JFrame{
 			showSummary();
 		}else{
 			Random r=new Random();
-			boolean found=false;
 			int i=0;
-			while(!found){
-				i=r.nextInt(numQs);
-				if(!questions[i].used){
-					found=true;
-				}
-			}
-			cards.show(p,"q"+i);
+ 			i=r.nextInt(num);
+ 			cards.show(p,"q"+i);
 		}
 	}
 	
 	public void showSummary(){
 		JOptionPane.showMessageDialog(null,"Here are your results"+
- 			"\nNumber of Correct Answers: \t"+corrects+
- 			"\nNumber of Wrong Answers: \t"+wrongs+
-
+ 			"\nScore: \t"+corrects+
+ 
  			"\nTotal: 9"
 		);
 		System.exit(0);

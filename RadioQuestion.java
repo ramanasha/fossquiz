@@ -1,11 +1,14 @@
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
+
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import java.util.Random;
+import java.awt.CardLayout;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -15,19 +18,16 @@ import java.awt.event.ActionEvent;
 public class RadioQuestion extends JPanel implements ActionListener{
 	int correctAns;
 	Quiz quiz;	
-	boolean found=false;
-	boolean count = false;
+ 
+ 	boolean count = false;
 	boolean wcount = false;
 	int selected;
 	boolean used = false;
-	//questions
-	JPanel qPanel=new JPanel();
-	//answers
-	JPanel aPanel=new JPanel();
+ 	JPanel qPanel=new JPanel();
+ 	JPanel aPanel=new JPanel();
 	JRadioButton[] responses;
 	ButtonGroup group=new ButtonGroup();
-	//bottom
-	JPanel botPanel=new JPanel();
+ 	JPanel botPanel=new JPanel();
 	JButton next=new JButton("Next");
 	JButton finish=new JButton("Finish");
  
@@ -36,11 +36,9 @@ public class RadioQuestion extends JPanel implements ActionListener{
 		this.quiz=quiz;
 		setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
 		correctAns=ans;
-		//question
-		qPanel.add(new JLabel(q));
+ 		qPanel.add(new JLabel(q));
 		add(qPanel);
-		//answer
-		responses=new JRadioButton[options.length];
+ 		responses=new JRadioButton[options.length];
 		for(int i=0;i<options.length;i++){
 			responses[i]=new JRadioButton(options[i]);
 			responses[i].addActionListener(this);
@@ -48,8 +46,7 @@ public class RadioQuestion extends JPanel implements ActionListener{
 			aPanel.add(responses[i]);
 		}
 		add(aPanel);
-		//bottom
-		next.addActionListener(this);
+ 		next.addActionListener(this);
 		finish.addActionListener(this);
 		botPanel.add(next);
 		botPanel.add(finish);
@@ -58,17 +55,14 @@ public class RadioQuestion extends JPanel implements ActionListener{
 	
 	public void actionPerformed(ActionEvent e){
 		Object src=e.getSource();
-		//next button
-		if(src.equals(next)){
+ 		if(src.equals(next) ){
 			showResult(); 
-			quiz.next();
+ 			quiz.next();
 		}
-		//finish button
-		if(src.equals(finish)){
+ 		if(src.equals(finish)){
 			quiz.showSummary();
 		}
-		//radio buttons
-		for(int i=0;i<responses.length;i++){
+ 		for(int i=0;i<responses.length;i++){
 			if(src==responses[i]){
 				selected=i;
 			}
@@ -80,6 +74,7 @@ public class RadioQuestion extends JPanel implements ActionListener{
 		quiz.total++;
 		if(selected==correctAns && count == false){
 			quiz.corrects++;
+
 			count = true;
   		}
   		else if(selected != correctAns && wcount == false)
