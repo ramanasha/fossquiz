@@ -10,6 +10,7 @@ public class Quiz extends JFrame{
 	CardLayout cards=new CardLayout();
 	int num = 1;
 	boolean v = false;
+	int i=0; 
 
 	int wrongs = 0;
 	int corrects=0;
@@ -25,6 +26,7 @@ public class Quiz extends JFrame{
 		{"True","False"},
 		{"Microsoft","HP","Netscape","Apple"},
 		{"Windows 10","Mac OS X","Linux","None of the above"},
+		{"Steve Jobs", "Bill Gates", "Linus Torvalds","Richard Stallman"}
 	};
 	
 	RadioQuestion questions[]={
@@ -73,7 +75,12 @@ public class Quiz extends JFrame{
 		new RadioQuestion(
 			"Which of these is an example of FOSS?",
 			answers[8],
-			1,this
+			2,this
+		),
+		new RadioQuestion(
+			"Who was the founder of the Free Software movement?",
+			answers[9],
+			3,this
 		)
 	};
 
@@ -102,18 +109,19 @@ public class Quiz extends JFrame{
 		if((corrects+wrongs)==total){
 			showSummary();
 		}else{
-			Random r=new Random();
-			int i=0;
- 			i=r.nextInt(num);
+ 
  			cards.show(p,"q"+i);
+			i = i + 1;
+ 		 
 		}
 	}
 	
 	public void showSummary(){
 		JOptionPane.showMessageDialog(null,"Here are your results"+
+ 			
  			"\nScore: \t"+corrects+
- 
- 			"\nTotal: 9"
+ 			
+ 			"\nTotal: 10"
 		);
 		System.exit(0);
 	}
